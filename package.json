@@ -6,20 +6,24 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "gh-page": "ng deploy --base-href=/characterCodePoint/"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.1.1",
+    "@angular/cdk": "^12.1.1",
     "@angular/common": "~12.1.1",
     "@angular/compiler": "~12.1.1",
     "@angular/core": "~12.1.1",
     "@angular/forms": "~12.1.1",
+    "@angular/material": "^12.1.1",
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
+    "unicode": "^13.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -28,6 +32,7 @@
     "@angular/compiler-cli": "~12.1.1",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

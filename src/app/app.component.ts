@@ -1,32 +1,48 @@
 import { Component } from '@angular/core';
+import {CharacterService} from './character.service';
+import {Character} from './models/character';
 
 @Component({
   selector: 'ccp-root',
   template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-    </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
+    <header>
+      <ccp-character-input (textChange)="onTextChange($event)"></ccp-character-input>
+    </header>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let char  of chars; index  as i">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{char.shape | uppercase}}
+            </mat-panel-title>
+            <mat-panel-description>
+              CodePoint: 0x{{char.codePointBaseString('hex')}}
+            </mat-panel-description>
+            <mat-panel-description>
+              UTF-8: 0x{{char.utf8 | uppercase}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>
+          </p>
+        </mat-expansion-panel>
+
+    </mat-accordion>
   `,
-  styles: []
+  styles: [`
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  `]
 })
 export class AppComponent {
-  title = 'characterCodePoint';
+
+  chars: Character[] = []
+
+  constructor(private characterService: CharacterService) {
+  }
+
+  onTextChange(text: string) {
+    this.chars = this.characterService.getCharacters(text)
+  }
 }
