@@ -13,4 +13,7 @@ describe('UnicodeService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+  it('should get all character info', () => {
+      expect(service.getUnicodeInfo("渡".codePointAt(0)!)).toBeTruthy()
+  });
 });

@@ -1,13 +1,13 @@
 export type CodePointBase = 'bit'  | 'dec' | 'hex'
 
-export class Character {
+export class Character implements Character {
   private codePointBase: {[key in CodePointBase]: number} = {
     bit: 2,
     dec: 10,
     hex: 16
   }
 
-  private _character: string
+  private readonly _character: string
   constructor(char: string) {
     if (char.length  ===  0) {
       throw Error('empty character')

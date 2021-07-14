@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "gh-page": "ng deploy --base-href=/characterCodePoint/",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "generate": "node ./tools/UnicodeDataGenerator.js"
   },
   "private": true,
   "dependencies": {
@@ -41,13 +42,17 @@
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
     "angular-cli-ghpages": "^1.0.0-rc.2",
+    "basic-ftp": "^4.6.6",
     "eslint": "^7.26.0",
+    "extract-zip": "^2.0.1",
+    "ftp": "^0.3.10",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.6.0",
-    "typescript": "~4.3.2"
+    "typescript": "~4.3.2",
+    "xml-js": "^1.6.11"
   }
 }

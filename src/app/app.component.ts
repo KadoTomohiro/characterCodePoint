@@ -19,10 +19,10 @@ import {UnicodeService} from './unicode.service';
         </mat-card-header>
         <mat-card-content>
           <mat-list dense>
-            <mat-list-item><span class="info-title">CodePoint</span> 0x{{char.codePointBaseString('hex') | uppercase}}</mat-list-item>
+            <mat-list-item><span class="info-title">CodePoint</span> 0x{{char.codePointBaseString('hex') | uppercase}}({{char.codePoint}})</mat-list-item>
             <mat-list-item><span class="info-title">UTF-8</span> 0x{{char.utf8 | uppercase}}</mat-list-item>
-            <mat-list-item><span class="info-title">Category</span> {{unicodeInfoList[i].category}}({{unicodeInfoList[i].category | unicodeCategory}})</mat-list-item>
-            <mat-list-item><span class="info-title">Name</span> {{unicodeInfoList[i].name}}{{unicodeInfoList[i].unicode_name}}</mat-list-item>
+            <mat-list-item><span class="info-title">Category</span> {{unicodeInfoList[i]?.category}}({{unicodeInfoList[i]?.category | unicodeCategory}})</mat-list-item>
+            <mat-list-item><span class="info-title">Name</span> {{unicodeInfoList[i]?.name}}, {{unicodeInfoList[i]?.unicode_name}}</mat-list-item>
           </mat-list>
         </mat-card-content>
       </mat-card>
