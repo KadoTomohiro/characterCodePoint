@@ -37,15 +37,44 @@ async function main() {
     console.log('success convert to js object')
     const chars = ucd.ucd.repertoire.char
 
+    const charInfo = chars.map(char => {
+      const attr = char._attributes
+      const names = getNames(char)
+      return {
+        codePoint: attr.cp,
+        name: names,
+        age: attr.age
+
+      }
+    })
+
 
     console.log(chars.length)
     // console.log('success convert to json')
     // const ucd = JSON.parse(ucdJson)
-    // await fs.writeFile(tempJsonPath, ucdJson)
-    // console.log('success export to json file')
+    await fs.writeFile(tempJsonPath, JSON.stringify(charInfo, null, 2))
+    console.log('success export to json file')
 
   } catch(err) {
       console.log(err)
   }
   // ftpClient.close()
+}
+
+function getNames(char) {
+  const names = []
+  const name = char._attributes.na
+  const nameAlias = char['name-alias']
+  const pushName = (name) => names.push(name)
+  if (name) {
+    pushName(name)
+  }
+  if (nameAlias) {
+    if (Array.isArray(nameAlias)) {
+      nameAlias.forEach(pushName)
+    } else {
+      pushName(nameAlias._attributes.alias)
+    }
+  }
+  return names
 }
