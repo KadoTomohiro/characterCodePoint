@@ -42,9 +42,11 @@ async function main() {
       const names = getNames(char)
       return {
         codePoint: attr.cp,
+        symbol: `\x${attr.cp.toString(16)}`,
         name: names,
-        age: attr.age
-
+        age: attr.age,
+        block: attr.blk,
+        generalCategory: attr.gc
       }
     })
 
@@ -71,7 +73,9 @@ function getNames(char) {
   }
   if (nameAlias) {
     if (Array.isArray(nameAlias)) {
-      nameAlias.forEach(pushName)
+      nameAlias
+        .map(nA => nA._attributes.alias)
+        .forEach(pushName)
     } else {
       pushName(nameAlias._attributes.alias)
     }

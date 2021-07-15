@@ -59,7 +59,6 @@ import {UnicodeService} from './unicode.service';
   `]
 })
 export class AppComponent {
-
   chars: Character[] = []
   unicodeInfoList: UnicodeInfo[]  = []
 
