@@ -37,25 +37,49 @@ async function main() {
     console.log('success convert to js object')
     const chars = ucd.ucd.repertoire.char
 
-    const charInfo = chars.map(char => {
+    const categoryMsp = new Map()
+
+
+    const charInfoStrings = chars.forEach((char, i) => {
       const attr = char._attributes
+
+      if (!categoryMsp.has(attr.gc)) {
+        categoryMsp.set(attr.gc, [])
+      }
+
       const names = getNames(char)
-      return {
-        codePoint: attr.cp,
-        symbol: `\x${attr.cp.toString(16)}`,
+      const codePoint = Number.parseInt(attr.cp, 16)
+      const info = {
+        codePoint: codePoint,
         name: names,
         age: attr.age,
         block: attr.blk,
         generalCategory: attr.gc
       }
+
+      if (i === 0 ) {
+        console.log(JSON.stringify(info))
+        console.log(JSON.stringify(info).replace(/([{,])"([^"]+)":/g,'$1$2:'))
+      }
+
+      const stringified = JSON.stringify(info).replace(/([{,])"([^"]+)":/g,'$1$2:')
+      categoryMsp.get(attr.gc).push(`${codePoint}:${stringified}`)
     })
 
 
-    console.log(chars.length)
+
     // console.log('success convert to json')
     // const ucd = JSON.parse(ucdJson)
-    await fs.writeFile(tempJsonPath, JSON.stringify(charInfo, null, 2))
+
+    for(let categoryName of categoryMsp.keys()) {
+      const file = `export default {${categoryMsp.get(categoryName).join(',')}}`
+      await fs.writeFile(`src/app/unicodeDictionary/${categoryName}.ts`, file)
+    }
+
+    // await fs.writeFile(tempJsonPath, JSON.stringify(charInfo, null, 2))
     console.log('success export to json file')
+
+
 
   } catch(err) {
       console.log(err)
