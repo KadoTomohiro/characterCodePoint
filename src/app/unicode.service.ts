@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
-import unicode, {UnicodeInfo, UnicodeInfoMap} from 'unicode/category'
+import { unicodeDictionary } from 'src/app/unicode-dictionary/allUnicodeCharacters'
+import {UnicodeInformation, UnicodeInformationMap} from './models/UnicodeInformation';
 @Injectable({
   providedIn: 'root'
 })
 export class UnicodeService {
-  private allUnicodeMap: UnicodeInfoMap = {}
+  private readonly allUnicodeMap: UnicodeInformationMap
   constructor() {
-    Object.keys(unicode).forEach(category => {
-      console.log(category)
-      Object.assign(this.allUnicodeMap, unicode[category])
-    })
-    console.log(Object.keys(this.allUnicodeMap).length)
+    this.allUnicodeMap = unicodeDictionary
   }
 
-  getUnicodeInfo(codePoint: number): UnicodeInfo{
+  getUnicodeInfo(codePoint: number): UnicodeInformation{
     return this.allUnicodeMap[codePoint]
   }
 }

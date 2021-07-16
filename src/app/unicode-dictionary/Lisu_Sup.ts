@@ -1,0 +1,1 @@
+export default {0x11FB0:{codePoint:"11FB0",name:["LISU LETTER YHA"],block:"Lisu_Sup",category:"Lo"}}
